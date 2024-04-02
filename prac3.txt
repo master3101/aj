@@ -1,0 +1,94 @@
+Q1)store image
+
+
+
+package practical.pkg4;
+import java.sql.*;
+import java.io.*;
+
+
+public class Practical4 {
+
+    
+    public static void main(String[] args) {
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost/bhavya_22","root","Doshi@12");
+            InputStream is =new FileInputStream("C:\\Users\\Bhavya Doshi\\OneDrive\\Pictures\\Screenshots\\demoimage.png");
+            String Q ="insert into student1 values(?,?,?,?)";
+            PreparedStatement st=con.prepareStatement(Q);
+            st.setInt(1,101);
+            st.setString(2,"xyz");
+            st.setDouble(3,88);
+            st.setBinaryStream(4, is);
+            int rs=st.executeUpdate();
+            if(rs>0)
+            {
+                System.out.println("Data Stored Sucessfully...");
+            }
+            else
+            {
+                System.out.print("Enable to store data");
+            }
+            con.close();
+       
+                }
+        catch(Exception ex){
+                    System.out.print(ex.toString());
+                    }
+            }
+    }
+             
+
+Q2)Retrive Image
+
+
+
+package practical4.pkg2;
+import java.sql.*;
+import java.io.*;
+
+
+public class Practical42 {
+
+ 
+    public static void main(String[] args) {
+        Connection con =null;
+        PreparedStatement ps=null;
+        OutputStream os =null;
+        InputStream is =null;
+         try{
+            Class.forName("com.mysql.jdbc.Driver");
+            
+                 con=DriverManager.getConnection("jdbc:mysql://localhost/bhavya_22","root","Doshi@12");
+                 String sql="select*from student1 where name = 'asd'";
+                 ps=con.prepareStatement(sql);
+                 ResultSet rs=ps.executeQuery();
+                 if(rs.next())
+                 {
+                     System.out.println("\n\t name ="+rs.getString(2));
+                     is = rs.getBinaryStream(4);
+                 }
+                 os=new FileOutputStream(new File("demoimage.png"));
+                 int data =0;
+                 while((data=is.read())!= -1)
+                 {
+                 os.write(data);
+         }
+                con.close();
+         }
+                    
+                  
+               
+                catch(ClassNotFoundException e){}
+                catch (SQLException e){}
+                catch(FileNotFoundException e){}
+                catch(IOException e){}
+                   
+                    
+         }
+        
+    }
+    
+
