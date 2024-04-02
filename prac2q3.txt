@@ -1,0 +1,69 @@
+Q.3
+Code:
+package jdbcpr2q4;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+public class JDBCPR2Q4 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/arya","root","123456");
+            Scanner sc=new Scanner(System.in);
+            System.out.println("Options:\n"
+                        + "Enter 1 for PID\n"
+                        + "Enter 2 for Product Name\n"
+                        + "Enter 3 for Price");
+                System.out.print("Enter option:");
+                int opt=sc.nextInt();
+                sc.nextLine();
+                Object uv=null;
+                String col=null;
+                switch(opt){
+                    case 1:{
+                        col="pid";
+                        System.out.println("Enter updated PID:");
+                        uv=sc.nextInt();
+                        break;
+                    }
+                    case 2:{
+                        col="pname";
+                        System.out.println("Enter updated Product Name:");
+                        uv=sc.nextLine();
+                        break;
+                    }
+                    case 3:{
+                        col="price";
+                        System.out.println("Enter updated Price:");
+                        uv=sc.nextInt();
+                        break;
+                    }
+                }
+                System.out.println("Enter PID of product for which you want to update details:");
+                int pid=sc.nextInt();
+                String sql="update product set "+col+"=? where pid=?";
+                PreparedStatement st=con.prepareStatement(sql);
+                if(col=="pname"){
+                    String uvs=(String)uv;
+                    st.setString(1, uvs);
+                }
+                else{
+                    int uvs=(int) uv;
+                    st.setInt(1,uvs);
+                }
+                st.setInt(2, pid);
+                int res=st.executeUpdate();
+                if(res>0){
+                    System.out.println("Record successfully updated");
+                }
+                else{
+                    System.out.println("Failed to update");
+                }
+        } catch (ClassNotFoundException|SQLException ex) {
+            System.out.println("Error:"+ex.getMessage());
+        }
+        
+    }
+   
+}

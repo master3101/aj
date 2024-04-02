@@ -1,0 +1,30 @@
+Q4
+Code:
+package connectmysql;
+import java.sql.*;
+import java.sql.DriverManager;
+import java.util.*;
+public class ConnectMYSQL {
+    public static void main(String[] args) {
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection obj = DriverManager.getConnection("jdbc:mysql://localhost:3306/arya"/*database name at last*/,"root","123456")) {
+                Scanner sc=new Scanner(System.in);
+                System.out.println("Enter RNO of student for which you want to delete details:");
+                int rno=sc.nextInt();
+                String sql="delete from student where rno="+rno;
+                Statement st= obj.createStatement();
+                int s=st.executeUpdate(sql);
+                if(s>0){
+                    System.out.println("Record deleted");
+                }
+                else{
+                    System.out.println("Failed to delete");
+                }
+            }
+        }
+        catch(ClassNotFoundException | SQLException e){
+            System.out.println("Error:"+e.getMessage());
+        }
+    }    
+}

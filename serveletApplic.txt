@@ -1,0 +1,59 @@
+
+-->.html
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="form">
+            Enter the Username: <input type="text" name="txtuname" value="" /><br><br>
+            Enter the Password: <input type="password" name="txtpass" value="" /><br><br>
+            <input type="submit" value="Submit" />
+
+            
+        </form>
+    </body>
+</html>
+
+
+
+-->.java
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+
+@WebServlet(urlPatterns = {"/form"})
+public class form extends HttpServlet {
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String name = request.getParameter("txtuname");
+            int pass = Integer.parseInt(request.getParameter("txtpass"));
+            if(name.equals("Bhavya") && pass == 1234)
+            {
+                out.print("Logged in Successfully");
+            }
+            else
+            {
+                out.print("Username or Password is Incorrect");
+            }
+        }
+    }

@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="insert">
+            Username :<input type="text" name="user" value="" /><br>
+            Password :<input type="text" name="pass" value="" /><br>
+            <input type="submit" value="Insert" />
+        </form>
+    </body>
+</html>
+
+
+------
+
+-->.Java servlet
+
+String user = request.getParameter("user");
+           String pass = request.getParameter("pass");
+           Class.forName("com.mysql.jdbc.Driver");
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost/sycs_228336", "pralex", "1906");
+           String sql = "insert into user values (?,?)";
+           PreparedStatement ps = con.prepareStatement(sql);
+           ps.setString(1,user);
+           ps.setString(2,pass);
+           int r = ps.executeUpdate();
+           if(r>0){
+           out.print("Inserted Successfully");
+           }
+
+
+-->Update record using servlet
+[Html
+Same code as insert
+Java servlet]
+Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/sycs_228336","pralex","1906");
+            String sql = "update user set pass = ? where user = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,request.getParameter("pass"));
+            ps.setString(2,request.getParameter("user"));
+            int r = ps.executeUpdate();
+            if(r>0){
+            out.print("Updated Successfully");
+            }
+            else{
+            out.print("Invalid user");
+            }
+
+-->Delete record using servlet
+[Html
+Same code as insert
+Java servlet]
+
+String user = request.getParameter("user");
+          Class.forName("com.mysql.jdbc.Driver");
+          Connection con = DriverManager.getConnection("jdbc:mysql://localhost/sycs_228336","pralex","1906");
+          String sql = "delete from user where user = ?";
+          PreparedStatement ps= con.prepareStatement(sql);
+          ps.setString(1, user);
+          int r = ps.executeUpdate();
+          if(r>0){
+          out.print("Deleted Successfully");
+          }
+          else{
+          out.print("Inavlid user");
+          }
+          
+
+-->Display record using servlet
+[Html
+Same code as insert
+Java servlet]
+
+Class.forName("com.mysql.jdbc.Driver");
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost/sycs_228336","pralex","1906");
+           Statement st = con.createStatement();
+           String sql = "Select * from user where user = '"+request.getParameter("user")+"' ";
+           ResultSet rs = st.executeQuery(sql);
+           while(rs.next()){
+           out.println("Username : "+rs.getString(1)+"<br>");
+           out.println("Password : "+rs.getString(2)+"<br>");
+           }

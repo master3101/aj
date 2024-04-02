@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="empdata">
+            <b>Enter Your Name</b>
+            <input type="text" name="name" value=""/>
+            <b>Enter Salary</b>
+            <input type="text" name="amt" value=""/>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
+
+
+-->.java
+
+
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/empdata"})
+public class empdata extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String name =request.getParameter("name");
+            String salary =request.getParameter("amt");
+            double sal =Integer.parseInt(salary);
+            double hra =0.3*sal;
+            double ta=0.2*sal;
+            double da=0.1*sal;
+            double total=sal+hra+ta+da;
+            out.println("<br>"+"Name of Employee"+name+"<br>");
+            out.println("Your Total salary"+total);
+        
+ 
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet empdata</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet empdata at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }

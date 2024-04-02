@@ -1,0 +1,100 @@
+-->.html
+
+<html>
+    <head>
+        <title>Grade Card</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="GradeCard" >
+            <b>Enter Your Name</b>
+            <input type="text" name="name" value=""/><br><br>
+            <b>Enter Your Roll No</b>
+            <input type="text" name="rollno" value=""/><br><br>
+            <b>Enter Marks Of Any One Subject</b>
+            <input type="text" name="mks" value=""/><br><br>
+            <input type="submit" name="View Result" value="Submit"/>
+        </form>
+    </body>
+</html>
+
+
+-->.java
+
+
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet(urlPatterns = {"/GradeCard"})
+public class GradeCard extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String name=request.getParameter("name");
+            String rn=request.getParameter("rollno");
+            String ms=request.getParameter("mks");
+            int marks=Integer.parseInt(ms);
+            out.println("Student Name:"+name);
+            out.println("Student Roll No:"+rn);
+            out.print("Marks Of One Subject:"+marks);
+            out.print(marks>=80);
+            if(marks>=80){
+                out.println("Your Grade is O");
+            }
+            else if(marks<=79 & marks>=70){
+                out.println("Your Grade is A+");
+            }
+            else if(marks<=69 & marks>=60){
+                out.println("Your Grade is A");
+            }
+            else if(marks<=59 & marks>=55){
+                out.println("Your Grade is B+");
+            }
+            else if(marks<=54 & marks>=50){
+                out.println("Your Grade is B");
+            }
+            else if(marks<=49 & marks>=45){
+                out.println("Your Grade is C");
+            }
+            else if(marks<=44 & marks>=40){
+                out.println("Your Grade is D");
+            }
+            else {
+            out.println("your failed");
+            }
+                
+            
+            
+            
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet GradeCard</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet GradeCard at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }

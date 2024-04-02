@@ -1,0 +1,31 @@
+import java.sql.*;
+import javax.swing.*;
+
+
+
+ try
+        {
+           String u= txtbxuser.getText();
+           String p= txtbxpass.getText();
+            Class.forName("com.mysql.jdbc.Driver");
+             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bhavya_22","root","Doshi@12");
+            String sql = " select * from user where username=? and password=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1,u);
+                ps.setString(2,p);
+                ResultSet i = ps.executeQuery();
+                if (i.next()==false)
+                {
+                    lblmsg.setText("username or password no found please register ");
+                   
+                }
+                else
+                {
+                    lblmsg.setText("login Successful \n"+ "hello "+ u );
+                }
+           
+       }
+       catch( Exception ex )
+       {
+           System.out.print( ex );
+       }

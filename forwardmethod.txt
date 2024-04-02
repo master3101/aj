@@ -1,0 +1,86 @@
+
+-->.html
+
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <form action="servlet" method="POST">
+                <h2>Login form to demonstrate RequestDispatcher forward()</h2><br>
+                <a>Enter your username:</a>
+                <input type="text" name="username"/>
+                <br>
+                <a>Enter your password</a> 
+                <input type="password" name="password"/>
+                <br>
+                <input type="submit" name="btn_submit" value="submit"/>
+            </form>
+            
+        </div>
+    </body>
+</html>
+
+---------------------------
+
+-->Servlet.java 
+
+try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+           
+        String n = request.getParameter("txtname");
+        String p = request.getParameter("txtpass");
+        out.println("Welcome Anurag");
+        if(p.isEmpty()){
+            RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+            rd.include(request, response);
+        }
+        else {
+            RequestDispatcher rd = request.getRequestDispatcher("servlet2") ;
+            rd.forward(request, response);
+        }
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            
+        }
+    }
+
+    
+}
+
+-----------------------------
+
+-->Servlet2.java
+
+
+try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("servlet 2");
+            String n = request.getParameter("txtname");
+            String p = request.getParameter("txtpass");
+            
+            out.println("Welcome " + n);
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet servlet2</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet servlet2 at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+}

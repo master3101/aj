@@ -1,0 +1,29 @@
+Q.4
+Code:
+package jdbcpr2q2;
+import java.sql.*;
+import java.util.*;
+public class JDBCPR2Q2 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/arya","root","123456");
+            Scanner sc=new Scanner(System.in);
+            String sql="delete from product where pid=?";
+            PreparedStatement st=con.prepareStatement(sql);
+            System.out.print("Enter Product ID of product whose records you want to delete:");
+            int pid=sc.nextInt();
+            sc.nextLine();
+            st.setInt(1, pid);
+            int res=st.executeUpdate();
+            if(res>0){
+                System.out.println("Record successfully deleted");
+            }
+            else{
+                System.out.println("Failed to delete");
+            }
+        } catch(ClassNotFoundException| SQLException e){
+            System.out.println("Error:"+e.getMessage());
+        }
+    }    
+}

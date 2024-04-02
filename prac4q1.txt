@@ -1,0 +1,31 @@
+import java.sql.*;
+import javax.swing.*;
+import java.sql.SQLClientInfoException;
+
+
+try
+        {
+           String u= txtbxuser.getText();
+           String p= txtbxpass.getText();
+            Class.forName("com.mysql.jdbc.Driver");
+             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bhavya_22","root","Doshi@12");
+            String sql = "insert into user values(?,?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1,u);
+                ps.setString(2,p);
+                int i = ps.executeUpdate();
+                if (i>0)
+                {
+                    lblmsg.setText("registered Successfully");
+                   
+                }
+                else
+                {
+                    lblmsg.setText("Enable to register");
+                }
+           
+       }
+       catch( Exception ex )
+       {
+           System.out.print( ex );
+       }

@@ -1,0 +1,37 @@
+package jdbcpr2q1;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+public class JDBCPR2Q1 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/arya","root","123456");
+            for(int i=0;i<5;i++){
+                Scanner sc=new Scanner(System.in);
+                String sql="insert into product values(?,?,?)";
+                PreparedStatement st=con.prepareStatement(sql);
+                System.out.print("Enter Product ID:");
+                int pid=sc.nextInt();
+                sc.nextLine();
+                System.out.print("Enter Product Name:");
+                String pname=sc.nextLine();
+                System.out.print("Enter Product Price:");
+                int price=sc.nextInt();
+                st.setInt(1, pid);
+                st.setString(2, pname);
+                st.setInt(3, price);
+                int s=st.executeUpdate();
+                if(s>0){
+                    System.out.println("Inserted");
+                }
+                else{
+                    System.out.println("Failed");
+                }
+            }
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println("Error:"+e.getMessage());
+        }
+    }    
+}

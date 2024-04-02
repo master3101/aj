@@ -1,0 +1,56 @@
+Q1)Calculator
+
+-->.html
+
+
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        	
+    </body>
+</html>
+
+
+-->.java
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet(urlPatterns = {"/cal"})
+public class cal extends HttpServlet {
+
+  
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String n1=request.getParameter("1Num");
+            String n2=request.getParameter("2Num");
+            String op=request.getParameter("operators");
+            if(op.equals("Addition")){
+                out.println("<h1>"+"Addition of 2 Number is"+(Integer.parseInt(n1)+Integer.parseInt(n2))+"<h1/>");
+            }
+            else if (op.equals("Subtraction")){
+                out.println("<h1>"+"Subtraction of 2 Number is"+(Integer.parseInt(n1)-Integer.parseInt(n2))+"<h1/>");
+            }
+            else if (op.equals("Multiplication")){
+                out.println("<h1>"+"Multiplication of 2 Number is"+(Integer.parseInt(n1)*Integer.parseInt(n2))+"<h1/>");
+            }
+            else {
+                out.println("<h1>"+"Division of 2 Number is"+(Integer.parseInt(n1)/Integer.parseInt(n2))+"<h1/>");
+            }
+            
+        }
+    }
